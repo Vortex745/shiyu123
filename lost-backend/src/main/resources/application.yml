@@ -1,19 +1,19 @@
 server:
-  port: 8088 # 服务端口
+  port: 9090 # 👈 1. 修改这里：将 8088 改为 9090，避免端口冲突
 
 spring:
   # 数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # 👇 2. 请确认数据库名字是否真的是 lost_found_db？如果不对请修改
     url: jdbc:mysql://localhost:3306/lost_found_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password: 123456 # 👈 3. 请确认这是你本地 MySQL 的真实密码
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
     hibernate:
-      ddl-auto: update  # 开启自动更新表结构（Erupt 需要这个来创建系统表）
-    show-sql: true      # (可选) 在控制台打印 SQL，方便调试
-  # 文件上传
+      ddl-auto: update
+    show-sql: true
   servlet:
     multipart:
       max-file-size: 10MB
@@ -23,21 +23,18 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-# MyBatis-Plus 配置 (这里是你修改正确的关键点)
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.li.lostbackend.entity # ✅ 这里必须是 com.li...
+  type-aliases-package: com.li.lostbackend.entity
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 日志配置
 logging:
   level:
     com.li: debug
     root: info
 
-# 👇👇👇 必须另起一行，顶格写，不要有缩进 👇👇👇
 erupt:
   csrf-inspect: false
   uploadPath: /opt/erupt-attachment
