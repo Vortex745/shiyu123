@@ -1,0 +1,204 @@
+/* src/style.css */
+
+:root {
+    /* 🌼 雏菊色板 */
+    --daisy-yellow: #ffc107;       /* 花蕊黄 - 主色 */
+    --daisy-orange: #ff9f43;       /* 暖橙 - 强调色 */
+    --daisy-green: #96c93d;        /* 叶子绿 - 成功/辅色 */
+    --cream-bg: #fffdf5;           /* 奶油白 - 全局背景 */
+    --pure-white: #ffffff;         /* 纯白 - 卡片背景 */
+    --warm-text: #5d4037;          /* 暖咖色 - 文字 (代替纯黑) */
+    --soft-gray: #a89f91;          /* 暖灰 - 辅助文字 */
+
+    /* 圆角与阴影 */
+    --radius-lg: 24px;             /* 大圆角 */
+    --radius-md: 16px;             /* 中圆角 */
+    --radius-pill: 50px;           /* 胶囊圆角 */
+    --shadow-soft: 0 10px 40px rgba(255, 193, 7, 0.15); /* 暖色柔光阴影 */
+    --shadow-float: 0 15px 30px rgba(93, 64, 55, 0.08); /* 悬浮阴影 */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--cream-bg); /* 全局暖色背景 */
+    font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif; /* 推荐圆润字体 */
+    color: var(--warm-text);
+    overflow-x: hidden;
+}
+
+#app {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* === 覆盖 Element Plus 默认样式 === */
+
+/* 按钮变成圆润的胶囊 */
+.el-button {
+    border-radius: var(--radius-pill) !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* 弹性动画 */
+}
+
+.el-button:active {
+    transform: scale(0.95); /* 点击回弹效果 */
+}
+
+.el-button--primary {
+    background: linear-gradient(135deg, var(--daisy-yellow), var(--daisy-orange)) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+}
+
+.el-button--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.4);
+}
+
+/* 输入框变得圆润 */
+.el-input__wrapper {
+    border-radius: var(--radius-pill) !important;
+    box-shadow: none !important;
+    background-color: #f7f5f0 !important; /* 浅米色输入框 */
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+    padding: 4px 15px !important;
+}
+
+.el-input__wrapper.is-focus {
+    background-color: var(--pure-white) !important;
+    border-color: var(--daisy-yellow) !important;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2) !important;
+}
+
+/* 标签页样式重置 */
+.el-tabs__item {
+    color: var(--soft-gray) !important;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.el-tabs__item.is-active {
+    color: var(--daisy-orange) !important;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.el-tabs__active-bar {
+    background-color: var(--daisy-orange) !important;
+    height: 4px !important;
+    border-radius: 2px;
+}
+/* ... 原有代码 ... */
+
+/* === 下拉菜单美化 (Daisy Style) === */
+.daisy-dropdown-popper .el-dropdown-menu {
+    border-radius: 16px !important; /* 圆角 */
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(255, 159, 67, 0.15) !important; /* 暖色阴影 */
+    padding: 8px !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 菜单项 */
+.daisy-dropdown-popper .el-dropdown-menu__item {
+    border-radius: 10px !important;
+    margin: 4px 0 !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    color: var(--warm-text) !important;
+    transition: all 0.2s !important;
+}
+
+/* 悬停效果 */
+.daisy-dropdown-popper .el-dropdown-menu__item:hover,
+.daisy-dropdown-popper .el-dropdown-menu__item:focus {
+    background-color: #fff0d1 !important; /* 浅黄色背景 */
+    color: var(--daisy-orange) !important;
+}
+
+/* 分割线 */
+.daisy-dropdown-popper .el-dropdown-menu__item--divided {
+    border-top-color: #f0f0f0 !important;
+    margin-top: 6px !important;
+}
+
+/* 去掉讨厌的三角箭头 (可选，更简洁) */
+.daisy-dropdown-popper .el-popper__arrow {
+    display: none;
+}
+/* src/style.css 底部追加 */
+
+/* === 雏菊风格弹窗 (Daisy Dialog) === */
+.daisy-dialog {
+    border-radius: 24px !important; /* 弹窗大圆角 */
+    overflow: hidden; /* 防止头部圆角被覆盖 */
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1) !important;
+}
+
+.daisy-dialog .el-dialog__header {
+    margin-right: 0 !important;
+    padding: 20px 24px !important;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.daisy-dialog .el-dialog__title {
+    font-weight: 800;
+    color: #5d4037; /* 暖咖色标题 */
+    font-size: 20px;
+}
+
+.daisy-dialog .el-dialog__body {
+    padding: 24px !important;
+}
+
+.daisy-dialog .el-dialog__footer {
+    padding: 10px 24px 24px !important;
+}
+
+/* 弹窗内的输入框 */
+.daisy-dialog .el-textarea__inner {
+    border-radius: 16px !important;
+    padding: 12px !important;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    transition: all 0.3s;
+}
+.daisy-dialog .el-textarea__inner:focus {
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+    border-color: var(--daisy-yellow);
+    /* src/style.css 底部追加 */
+
+    /* === 页面切换动画 (自然流体感) === */
+
+    /* 进场和离场的激活状态：使用温柔的减速曲线 */
+    .page-fade-enter-active,
+    .page-fade-leave-active {
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+
+    /* 进场前：新页面稍微在下面一点点，透明 */
+    .page-fade-enter-from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    /* 离场后：旧页面稍微往上浮一点点，变透明 */
+    .page-fade-leave-to {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    /* 优化：防止动画过程中出现滚动条跳动 */
+    body {
+        overflow-x: hidden;
+    }
+}

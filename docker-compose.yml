@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  # 数据库服务
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: lost_found
+      MYSQL_ROOT_PASSWORD: your_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql # 保证数据跟着文件夹走，切换设备数据不丢
+
+  # 后端服务
+  backend:
+    build: ./lost-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=your_password
+
+  # 前端服务 (使用 Nginx 托管)
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "5173:80"
+    volumes:
+      - ./lost-frontend/dist:/usr/share/nginx/html # 挂载打包好的前端
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf # 挂载自定义 Nginx 配置
+    depends_on:
+      - backend
